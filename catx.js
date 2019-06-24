@@ -3,11 +3,12 @@
 var fs = require('fs');
 var colors = require('colors');
 var eol = require('os').EOL;
+var parser = require('fast-xml-parser');
 var optimist = require('optimist')
-    .alias('h', 'help')
-    .describe('h', 'Displays help.')
-    .usage('Usage:' + eol +
-           '  catj [-h|--help] [file]...');
+  .alias('h', 'help')
+  .describe('h', 'Displays help.')
+  .usage('Usage:' + eol +
+    '  catx [-h|--help] [file]...');
 
 if (optimist.argv.help) {
   console.log(optimist.help());
@@ -17,21 +18,19 @@ if (optimist.argv.help) {
 if (optimist.argv._.length === 0 || optimist.argv._[0] === '-') {
   var input = '';
 
-  process.stdin.on('data', function(chunk) {
+  process.stdin.on('data', function (chunk) {
     input += chunk;
   });
 
-  process.stdin.on('end', function() {
-    var data = JSON.parse(input);
-    print(data);
+  process.stdin.on('end', function () {
+    var dom = parser.parse(input)
+    print(dom);
   });
-}
-else {
+} else {
   for (file in optimist.argv._) {
-    var input = fs.readFileSync(optimist.argv._[file]);
-    var data = JSON.parse(input);
-
-    print(data);
+    var input = fs.readFileSync(optimist.argv._[file], "utf8");
+    var obj = parser.parse(input)
+    print(obj);
   }
 }
 
@@ -45,10 +44,10 @@ function print(data) {
 function printObject(obj, path) {
   for (var prop in obj) {
     var value = obj[prop];
-    var nodePath = path + '.'.cyan + prop;
+    var nodePath = path + '/'.cyan + prop;
 
     if (!isValidIdentifier(prop))
-      nodePath = (path ? path : '.'.cyan) + '["' + prop + '"]';
+      nodePath = (path ? path : '/'.cyan) + '["' + prop + '"]';
 
     if (isArray(value))
       printArray(value, nodePath);
@@ -64,7 +63,7 @@ function printObject(obj, path) {
 function printArray(array, path) {
   for (var index in array) {
     var value = array[index];
-    var nodePath = (path ? path : '.'.cyan) + '[' + index.cyan + ']';
+    var nodePath = (path ? path : '/'.cyan) + '[' + index.cyan + ']';
 
     if (isArray(value))
       printArray(value, nodePath);

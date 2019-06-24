@@ -1,73 +1,58 @@
 # catj
-Displays JSON files in a flat format.
+Displays XML files in a flat format. Doesn't do namespaces or attributes.
 
 Input:
 
 ```
-{
-  "mappings": {
-    "templates": [
-      {
-        "fields": {
-          "mapping": {
-            "norms": false,
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "ignore_above": 256,
-                "type": "keyword"
-              }
-            }
-          }
-        }
-      }
-    ]
-  }
-}
+<note>
+  <to>Tove</to>
+  <from>Jani</from>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
 ```
 
 Output:
 
 ```
-.mappings.templates[0].fields.mapping.norms = false
-.mappings.templates[0].fields.mapping.type = "text"
-.mappings.templates[0].fields.mapping.fields.keyword.ignore_above = 256
-.mappings.templates[0].fields.mapping.fields.keyword.type = "keyword"
+/note/to = Tove
+/note/from = Jani
+/note/heading = Reminder
+/note/body = Don't forget me this weekend!
 ```
 
 ## Why?
 
-- It makes it easier to understand the structure of JSON files.
-- The output is valid JavaScript which can be used directly in code.
-- It's very helpful when writing queries for tools like [jq](https://stedolan.github.io/jq/manual/).
+- It makes it easier to understand the structure of XML files.
+- The output is valid absolute xpath which can be used directly in code.
 
 ## Install
 
 ```
-npm install -g catj
+npm install -g catx
 ```
 
 ## Usage
 
 ```
-catj [file]
+catx [file]
 ```
 
-If no file is specified, catj reads from the standard input.
+If no file is specified, catx reads from the standard input.
 
 ## Version History
 + **1.0**
 	+ Initial release.
+  + Inspired by Soheil Rashidi's catj: http://soheilrashidi.com
+  + Also @dynamicwebpaige's tweet: https://twitter.com/DynamicWebPaige/status/1142220407719616513 
 
 ## Author
-**Soheil Rashidi**
+**Sam Moorhouse**
 
-+ http://soheilrashidi.com
-+ http://twitter.com/soheilpro
-+ http://github.com/soheilpro
++ http://globalcode.org.uk/
 
 ## Copyright and License
-Copyright 2014 Soheil Rashidi
+Copyright 2019 Sam Moorhouse
 
 Licensed under the The MIT License (the "License");
 you may not use this work except in compliance with the License.
