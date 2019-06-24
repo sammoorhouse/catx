@@ -1,6 +1,6 @@
 {
   "name": "catx",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Displays XML files in flat format. Handy when you need to find the full path of a node.",
   "main": "catj.js",
   "dependencies": {

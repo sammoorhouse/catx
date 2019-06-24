@@ -4,21 +4,39 @@ Displays XML files in a flat format. Doesn't do namespaces or attributes.
 Input:
 
 ```
-<note>
-  <to>Tove</to>
-  <from>Jani</from>
-  <heading>Reminder</heading>
-  <body>Don't forget me this weekend!</body>
-</note>
+<items>
+	<item id="0001" type="donut">
+		<name>Cake</name>
+		<ppu>0.55</ppu>
+		<batters>
+			<batter id="1001">Regular</batter>
+			<batter id="1002">Chocolate</batter>
+			<batter id="1003">Blueberry</batter>
+		</batters>
+		<topping id="5001">None</topping>
+		<topping id="5002">Glazed</topping>
+		<topping id="5005">Sugar</topping>
+		<topping id="5006">Sprinkles</topping>
+		<topping id="5003">Chocolate</topping>
+		<topping id="5004">Maple</topping>
+	</item>
+</items>
 ```
 
 Output:
 
 ```
-/note/to = Tove
-/note/from = Jani
-/note/heading = Reminder
-/note/body = Don't forget me this weekend!
+/items/item/name = "Cake"
+/items/item/ppu = 0.55
+/items/item/batters/batter[0] = "Regular"
+/items/item/batters/batter[1] = "Chocolate"
+/items/item/batters/batter[2] = "Blueberry"
+/items/item/topping[0] = "None"
+/items/item/topping[1] = "Glazed"
+/items/item/topping[2] = "Sugar"
+/items/item/topping[3] = "Sprinkles"
+/items/item/topping[4] = "Chocolate"
+/items/item/topping[5] = "Maple"
 ```
 
 ## Why?
