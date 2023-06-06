@@ -5,7 +5,7 @@
   "main": "catj.js",
   "dependencies": {
     "colors": "^1.1.2",
-    "fast-xml-parser": "3.12.16",
+    "fast-xml-parser": "4.2.4",
     "optimist": "~0.6.1"
   },
   "preferGlobal": true,
